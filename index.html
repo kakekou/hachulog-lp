@@ -89,6 +89,17 @@
     .feature-title{font-size:1.5rem;font-weight:700;margin-bottom:16px;color:var(--text-primary)}
     .feature-desc{font-size:1.1rem;color:var(--text-secondary);line-height:1.9}
     @media(max-width:639px){.feature-card,.feature-card:nth-child(even){flex-direction:column}.feature-card-content{padding:32px 24px 16px}.feature-screenshot{padding:16px 24px 28px}.feature-phone{width:180px}}
+    .faq-section{background:linear-gradient(180deg,transparent 0%,rgba(74,222,128,0.015) 50%,transparent 100%);position:relative}
+    .faq-list{display:flex;flex-direction:column;gap:16px}
+    .faq-item{background:var(--bg-card);border-radius:18px;border:1px solid var(--border);overflow:hidden;backdrop-filter:blur(10px);transition:border-color 0.3s ease}
+    .faq-item:hover{border-color:var(--border-hover)}
+    .faq-question{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 28px;background:none;border:none;color:var(--text-primary);font-size:1.1rem;font-weight:700;font-family:inherit;cursor:pointer;text-align:left;line-height:1.6;transition:background 0.3s ease}
+    .faq-question:hover{background:var(--bg-card-hover)}
+    .faq-question::after{content:'+';font-size:1.5rem;font-weight:400;color:var(--green-primary);flex-shrink:0;transition:transform 0.3s ease}
+    .faq-item.open .faq-question::after{content:'-';transform:rotate(180deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
+    .faq-item.open .faq-answer{max-height:400px}
+    .faq-answer-inner{padding:0 28px 24px;color:var(--text-secondary);font-size:1rem;line-height:1.9}
     .cta-section{text-align:center;padding:80px 0 140px;position:relative}
     .cta-section::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(74,222,128,0.06),transparent 70%);pointer-events:none}
     .cta-section .section-title{margin-bottom:14px}
@@ -151,6 +162,26 @@
         <div class="feature-card fade-in stagger-3">
           <div class="feature-card-content"><div class="feature-number">03</div><h3 class="feature-title">📅 一目でわかるカレンダー</h3><p class="feature-desc">給餌・排泄・脱皮・掃除の記録をカレンダーでまとめて表示。週表示で一週間の状況を一覧できます。</p></div>
           <div class="feature-screenshot"><div class="feature-phone"><img src="screenshot.png" alt="カレンダー画面"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="faq-section">
+    <div class="container">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">よくある質問</h2>
+      <div class="faq-list">
+        <div class="faq-item fade-in stagger-1">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">アプリは無料で利用できますか？</button>
+          <div class="faq-answer"><div class="faq-answer-inner">現在テスト版として無料で全機能をお使いいただけます。正式リリース後は、登録個体数など一部の機能に制限のある無料プランと、すべての機能をご利用いただけるサブスクリプションプランをご用意する予定です。</div></div>
+        </div>
+        <div class="faq-item fade-in stagger-2">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">スマホのアプリはありますか？</button>
+          <div class="faq-answer"><div class="faq-answer-inner">現在ハチュログはブラウザからアクセスするWebサービスとして提供しています。App StoreやGoogle Play Storeでダウンロードできるスマホアプリは現在開発中です。<br><br>ただし、ハチュログをスマートフォンのホーム画面に追加していただくことで、スマホアプリのようにホーム画面からワンタップでアクセスできますのでぜひお試しください。</div></div>
+        </div>
+        <div class="faq-item fade-in stagger-3">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">LINE・Instagram・FacebookからGoogleログインできないのですが？</button>
+          <div class="faq-answer"><div class="faq-answer-inner">LINE、Instagram、FacebookなどのアプリからハチュログのURLを開いてGoogleログインしようとすると、Googleの仕様によりログインできない場合があります。<br><br>その場合は、ChromeやSafariなどのブラウザで直接ハチュログのURLを開いてログインしてください。X（旧Twitter）からはログインが可能です。</div></div>
         </div>
       </div>
     </div>
