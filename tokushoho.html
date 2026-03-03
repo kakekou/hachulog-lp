@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>特定商取引法に基づく表記 | ハチュログ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg-deep:#060b06;
+      --bg-card:rgba(18,30,18,0.7);
+      --green-primary:#4ade80;
+      --green-bright:#86efac;
+      --text-primary:#eaf5ea;
+      --text-secondary:#9cb89c;
+      --text-muted:#5a7a5a;
+      --border:rgba(74,222,128,0.08);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Noto Sans JP',sans-serif;background:var(--bg-deep);color:var(--text-primary);line-height:1.8;min-height:100vh;display:flex;flex-direction:column}
+    .container{max-width:800px;margin:0 auto;padding:0 24px;width:100%}
+    header{padding:24px 0;border-bottom:1px solid var(--border)}
+    header a{color:var(--green-primary);text-decoration:none;font-size:0.9rem;transition:color 0.3s ease}
+    header a:hover{color:var(--green-bright)}
+    main{flex:1;padding:60px 0}
+    h1{font-size:1.6rem;font-weight:700;margin-bottom:48px}
+    table{width:100%;border-collapse:collapse;margin-bottom:40px}
+    th,td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+    th{width:200px;color:var(--text-secondary);font-weight:500;font-size:0.9rem;white-space:nowrap}
+    td{color:var(--text-primary);font-size:0.95rem}
+    @media(max-width:639px){
+      th,td{display:block;width:100%;padding:8px 0}
+      th{padding-top:20px;font-size:0.8rem}
+      td{padding-bottom:20px;border-bottom:1px solid var(--border)}
+    }
+    footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text-muted);font-size:0.8rem}
+    footer a{color:var(--green-primary);text-decoration:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html">&larr; トップに戻る</a>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <h1>特定商取引法に基づく表記</h1>
+      <table>
+        <tr>
+          <th>販売業者</th>
+          <td><!-- 事業者名を記入 --></td>
+        </tr>
+        <tr>
+          <th>運営統括責任者</th>
+          <td><!-- 責任者名を記入 --></td>
+        </tr>
+        <tr>
+          <th>所在地</th>
+          <td><!-- 住所を記入（請求があった場合に遅滞なく開示） --></td>
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td><!-- 電話番号を記入（請求があった場合に遅滞なく開示） --></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><!-- メールアドレスを記入 --></td>
+        </tr>
+        <tr>
+          <th>販売価格</th>
+          <td>各プランページに表示された価格に準じます（税込表示）</td>
+        </tr>
+        <tr>
+          <th>支払方法</th>
+          <td>クレジットカード決済（Stripe経由）</td>
+        </tr>
+        <tr>
+          <th>支払時期</th>
+          <td>サブスクリプション登録時に初回決済、以降は契約期間に応じた自動更新</td>
+        </tr>
+        <tr>
+          <th>サービス提供時期</th>
+          <td>決済完了後、即時ご利用いただけます</td>
+        </tr>
+        <tr>
+          <th>キャンセル・解約</th>
+          <td>アプリ内の設定画面からいつでも解約可能です。解約後も契約期間の終了日まではご利用いただけます。</td>
+        </tr>
+        <tr>
+          <th>返金について</th>
+          <td>デジタルサービスの性質上、原則として返金には対応しておりません。ただし、サービスに重大な不具合があった場合は個別にご相談ください。</td>
+        </tr>
+      </table>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <p>© 2026 HachuLog</p>
+    </div>
+  </footer>
+</body>
+</html>
