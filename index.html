@@ -3,231 +3,530 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ハチュログ | 爬虫類専用の次世代管理アプリ</title>
-  <meta name="description" content="多頭飼育でも迷わない。給餌・脱皮・体重をまとめて管理できる、爬虫類飼育者のための無料アプリ。">
-  <meta property="og:title" content="ハチュログ | 爬虫類専用の次世代管理アプリ">
-  <meta property="og:description" content="あの子の「元気」を、手のひらで管理。多頭飼育でも迷わない爬虫類専用アプリ。">
+  <title>ハチュログ | 爬虫類飼育の記録をもっとかんたんに</title>
+  <meta name="description" content="給餌・脱皮・体重・繁殖…爬虫類のお世話をまるごと記録できる専用アプリ。多頭飼いでも一括入力でラクラク管理。3匹まで無料。">
+  <meta property="og:title" content="ハチュログ | 爬虫類飼育の記録をもっとかんたんに">
+  <meta property="og:description" content="給餌・脱皮・体重・繁殖…爬虫類のお世話をまるごと記録。多頭飼いでも一括入力でラクラク管理。">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://www.hachulog.jp/icon-small.png">
   <meta property="og:url" content="https://www.hachulog.jp/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:image" content="https://www.hachulog.jp/icon-small.png">
-  <meta name="twitter:title" content="ハチュログ | 爬虫類専用の次世代管理アプリ">
-  <meta name="twitter:description" content="多頭飼育でも迷わない。給餌・脱皮・体重をまとめて管理できる、爬虫類飼育者のための無料アプリ。">
+  <meta name="twitter:title" content="ハチュログ | 爬虫類飼育の記録をもっとかんたんに">
+  <meta name="twitter:description" content="給餌・脱皮・体重・繁殖…爬虫類のお世話をまるごと記録。多頭飼いでも一括入力でラクラク管理。">
+  <link rel="icon" href="icon-small.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
     :root{
-      --bg-deep:#060b06;
-      --bg-card:rgba(18,30,18,0.7);
-      --bg-card-hover:rgba(26,42,26,0.8);
-      --green-primary:#4ade80;
-      --green-dim:#22c55e;
-      --green-bright:#86efac;
-      --green-glow:rgba(74,222,128,0.12);
-      --text-primary:#eaf5ea;
-      --text-secondary:#9cb89c;
-      --text-muted:#5a7a5a;
-      --border:rgba(74,222,128,0.08);
-      --border-hover:rgba(74,222,128,0.2);
+      --bg:#FAFBF8;
+      --bg-section:#F0F7F1;
+      --bg-hero:#F6FBF6;
+      --card:#FFFFFF;
+      --card-hover:#F8FCF8;
+      --primary:#22C55E;
+      --primary-light:#4ADE80;
+      --primary-pale:#DCFCE7;
+      --primary-bg:#F0FDF4;
+      --primary-dark:#16A34A;
+      --text:#1A2E1A;
+      --text-sub:#3D5A3D;
+      --text-muted:#6B8F6B;
+      --text-light:#94B894;
+      --border:#D4E8D4;
+      --border-light:#E8F2E8;
+      --shadow-sm:0 1px 3px rgba(22,80,34,0.06);
+      --shadow-md:0 4px 16px rgba(22,80,34,0.08);
+      --shadow-lg:0 8px 32px rgba(22,80,34,0.1);
+      --shadow-phone:0 20px 60px rgba(22,80,34,0.15),0 4px 20px rgba(0,0,0,0.08);
+      --radius-sm:10px;
+      --radius-md:16px;
+      --radius-lg:24px;
+      --radius-xl:32px;
     }
+
     html{scroll-behavior:smooth}
-    body{font-family:'Noto Sans JP','Zen Kaku Gothic New',sans-serif;background:var(--bg-deep);color:var(--text-primary);line-height:1.8;overflow-x:hidden}
-    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
-    .ambient-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);opacity:0.4}
-    .ambient-orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(74,222,128,0.08),transparent 70%);top:-100px;right:-100px;animation:orbFloat1 20s ease-in-out infinite}
-    .ambient-orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(34,197,94,0.06),transparent 70%);bottom:20%;left:-100px;animation:orbFloat2 25s ease-in-out infinite}
-    @keyframes orbFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,80px)}}
-    @keyframes orbFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-60px)}}
-    .container{max-width:1000px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
-    section{padding:120px 0}
-    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;padding:60px 0}
-    .hero::before{content:'';position:absolute;top:-300px;left:50%;transform:translateX(-50%);width:1000px;height:1000px;background:radial-gradient(circle,rgba(74,222,128,0.1) 0%,rgba(74,222,128,0.03) 40%,transparent 70%);pointer-events:none;animation:heroGlow 8s ease-in-out infinite}
-    @keyframes heroGlow{0%,100%{opacity:0.8;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.05)}}
-    .hero-icon{width:100px;height:100px;border-radius:24px;margin:0 auto 36px;box-shadow:0 8px 40px rgba(74,222,128,0.25),0 0 0 1px rgba(74,222,128,0.1);animation:float 4s ease-in-out infinite;opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease}
-    .hero-icon.visible{opacity:1;transform:translateY(0)}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-    .hero-catch{font-family:'Zen Kaku Gothic New',sans-serif;font-size:clamp(2.2rem,5.5vw,3.5rem);font-weight:900;line-height:1.35;margin-bottom:24px;letter-spacing:-0.03em}
-    .hero-catch .line{display:block;overflow:hidden}
-    .hero-catch .line-inner{display:block;opacity:0;transform:translateY(100%);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.16,1,0.3,1)}
-    .hero-catch .line-inner.visible{opacity:1;transform:translateY(0)}
-    .hero-catch .highlight{background:linear-gradient(135deg,var(--green-primary),var(--green-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero-sub{font-size:clamp(0.95rem,2vw,1.15rem);color:var(--text-secondary);max-width:540px;margin:0 auto 52px;line-height:2;opacity:0;transform:translateY(16px);transition:opacity 0.8s ease 0.5s,transform 0.8s ease 0.5s}
-    .hero-sub.visible{opacity:1;transform:translateY(0)}
-    .cta-button{display:inline-flex;align-items:center;gap:10px;padding:18px 44px;background:linear-gradient(135deg,var(--green-dim),var(--green-primary));color:#0a0f0a;font-size:1.05rem;font-weight:700;border:none;border-radius:60px;cursor:pointer;text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);box-shadow:0 4px 30px rgba(74,222,128,0.3);position:relative;overflow:hidden;opacity:0;transform:translateY(16px)}
-    .cta-button.visible{opacity:1;transform:translateY(0);transition:opacity 0.8s ease 0.7s,transform 0.8s ease 0.7s,box-shadow 0.4s ease}
-    .cta-button::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.2) 50%,transparent 70%);transform:translateX(-100%);transition:transform 0.6s ease}
-    .cta-button:hover{transform:translateY(-3px) !important;box-shadow:0 8px 50px rgba(74,222,128,0.45),0 0 0 4px rgba(74,222,128,0.1)}
-    .cta-button:hover::before{transform:translateX(100%)}
-    .cta-sub{display:block;margin-top:16px;font-size:0.8rem;color:var(--text-muted);letter-spacing:0.04em;opacity:0;transition:opacity 0.8s ease 0.9s}
-    .cta-sub.visible{opacity:1}
-    .phone-mockup{margin:72px auto 0;max-width:280px;position:relative;opacity:0;transform:translateY(40px);transition:opacity 1s ease 0.4s,transform 1s cubic-bezier(0.16,1,0.3,1) 0.4s}
-    .phone-mockup.visible{opacity:1;transform:translateY(0)}
-    .phone-inner{background:var(--bg-card);border-radius:36px;padding:12px;border:1.5px solid var(--border-hover);box-shadow:0 30px 100px rgba(0,0,0,0.6),0 0 80px rgba(74,222,128,0.08);backdrop-filter:blur(20px);position:relative;overflow:hidden}
-    .phone-inner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent 0%,rgba(74,222,128,0.06) 10%,transparent 20%);animation:phoneSpin 8s linear infinite}
-    @keyframes phoneSpin{to{transform:rotate(360deg)}}
-    .phone-mockup img{width:100%;border-radius:24px;display:block;position:relative;z-index:1}
-    .phone-glow{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:200px;height:80px;background:radial-gradient(ellipse,rgba(74,222,128,0.15),transparent 70%);filter:blur(20px);z-index:0}
-    .section-label{display:inline-block;font-size:0.72rem;font-weight:700;color:var(--green-primary);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:18px;position:relative;padding-left:20px}
-    .section-label::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:10px;height:2px;background:var(--green-primary)}
-    .section-title{font-family:'Zen Kaku Gothic New',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;margin-bottom:56px;line-height:1.35;letter-spacing:-0.02em}
-    .pain-section{background:linear-gradient(180deg,transparent 0%,rgba(74,222,128,0.015) 50%,transparent 100%);position:relative}
-    .pain-list{display:flex;flex-direction:column;gap:16px}
-    .pain-item{display:flex;align-items:flex-start;gap:18px;padding:28px;background:var(--bg-card);border-radius:18px;border:1px solid var(--border);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(10px)}
-    .pain-item:hover{border-color:var(--border-hover);background:var(--bg-card-hover);transform:translateX(6px)}
-    .pain-emoji{font-size:1.4rem;flex-shrink:0;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--green-glow);border-radius:14px;border:1px solid var(--border)}
-    .pain-text{font-size:1.05rem;color:var(--text-secondary);line-height:1.8}
-    .pain-text strong{color:var(--text-primary);display:block;margin-bottom:4px;font-size:1.15rem;font-weight:700}
-    .features-grid{display:flex;flex-direction:column;gap:32px}
-    .feature-card{display:flex;align-items:center;gap:0;background:var(--bg-card);border-radius:24px;border:1px solid var(--border);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;backdrop-filter:blur(10px)}
-    .feature-card:nth-child(even){flex-direction:row-reverse}
-    .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green-primary),transparent);opacity:0;transition:opacity 0.5s ease}
-    .feature-card:hover::before{opacity:1}
-    .feature-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3),0 0 40px rgba(74,222,128,0.05)}
-    .feature-card-content{flex:1;padding:48px 44px}
-    .feature-screenshot{flex-shrink:0;display:flex;justify-content:center;align-items:center;padding:36px 32px;position:relative}
-    .feature-phone{width:200px;background:#1a1a1a;border-radius:28px;padding:10px;border:2px solid rgba(255,255,255,0.08);box-shadow:0 16px 50px rgba(0,0,0,0.5),0 0 40px rgba(74,222,128,0.06);overflow:hidden;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1)}
-    .feature-card:hover .feature-phone{transform:translateY(-6px)}
-    .feature-phone img{width:100%;display:block;border-radius:18px}
-    .feature-number{font-family:'Zen Kaku Gothic New',sans-serif;font-size:4rem;font-weight:900;background:linear-gradient(180deg,rgba(74,222,128,0.15),rgba(74,222,128,0.03));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:16px}
-    .feature-title{font-size:1.5rem;font-weight:700;margin-bottom:16px;color:var(--text-primary)}
-    .feature-desc{font-size:1.1rem;color:var(--text-secondary);line-height:1.9}
-    @media(max-width:639px){.feature-card,.feature-card:nth-child(even){flex-direction:column}.feature-card-content{padding:32px 24px 16px}.feature-screenshot{padding:16px 24px 28px}.feature-phone{width:180px}}
-    .faq-section{background:linear-gradient(180deg,transparent 0%,rgba(74,222,128,0.015) 50%,transparent 100%);position:relative}
-    .faq-list{display:flex;flex-direction:column;gap:16px}
-    .faq-item{background:var(--bg-card);border-radius:18px;border:1px solid var(--border);overflow:hidden;backdrop-filter:blur(10px);transition:border-color 0.3s ease}
-    .faq-item:hover{border-color:var(--border-hover)}
-    .faq-question{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 28px;background:none;border:none;color:var(--text-primary);font-size:1.1rem;font-weight:700;font-family:inherit;cursor:pointer;text-align:left;line-height:1.6;transition:background 0.3s ease}
-    .faq-question:hover{background:var(--bg-card-hover)}
-    .faq-question::after{content:'+';font-size:1.5rem;font-weight:400;color:var(--green-primary);flex-shrink:0;transition:transform 0.3s ease}
-    .faq-item.open .faq-question::after{content:'-';transform:rotate(180deg)}
-    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
-    .faq-item.open .faq-answer{max-height:400px}
-    .faq-answer-inner{padding:0 28px 24px;color:var(--text-secondary);font-size:1rem;line-height:1.9}
-    .cta-section{text-align:center;padding:80px 0 140px;position:relative}
-    .cta-section::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(74,222,128,0.06),transparent 70%);pointer-events:none}
-    .cta-section .section-title{margin-bottom:14px}
-    .cta-section .cta-desc{color:var(--text-secondary);margin-bottom:44px;font-size:1.1rem}
-    footer{border-top:1px solid var(--border);padding:48px 0;text-align:center;color:var(--text-muted);font-size:0.8rem}
-    footer a{color:var(--green-primary);text-decoration:none;transition:color 0.3s ease}
-    footer a:hover{color:var(--green-bright)}
-    .footer-links{display:flex;justify-content:center;gap:28px;margin-bottom:18px;flex-wrap:wrap}
-    .fade-in{opacity:0;transform:translateY(28px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
-    .fade-in.visible{opacity:1;transform:translateY(0)}
-    .fade-in-left{opacity:0;transform:translateX(-28px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
-    .fade-in-left.visible{opacity:1;transform:translateX(0)}
-    .stagger-1{transition-delay:0.1s}
-    .stagger-2{transition-delay:0.2s}
-    .stagger-3{transition-delay:0.3s}
-    .cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(74,222,128,0.04),transparent 70%);pointer-events:none;z-index:0;transition:left 0.3s ease,top 0.3s ease;transform:translate(-50%,-50%)}
-    ::selection{background:rgba(74,222,128,0.25);color:var(--text-primary)}
+    body{font-family:'Noto Sans JP','Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--primary-pale);color:var(--text)}
+    img{max-width:100%;height:auto}
+
+    .container{max-width:1080px;margin:0 auto;padding:0 20px}
+
+    /* ─── Header ─── */
+    .header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,251,248,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);transition:box-shadow 0.3s ease}
+    .header.scrolled{box-shadow:var(--shadow-sm)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;height:60px}
+    .header-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+    .header-logo img{width:36px;height:36px;border-radius:8px}
+    .header-logo span{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:-0.02em}
+    .header-cta{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;background:var(--primary);color:#fff;font-size:0.85rem;font-weight:700;border:none;border-radius:50px;text-decoration:none;transition:all 0.3s ease;box-shadow:0 2px 8px rgba(34,197,94,0.25)}
+    .header-cta:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(34,197,94,0.35)}
+
+    /* ─── Hero ─── */
+    .hero{padding:130px 0 80px;position:relative;background:var(--bg-hero);overflow:hidden}
+    .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+    .hero-inner{display:flex;align-items:center;gap:48px}
+    .hero-content{flex:1;min-width:0}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--primary-pale);color:var(--primary-dark);font-size:0.78rem;font-weight:700;border-radius:50px;margin-bottom:24px;letter-spacing:0.02em}
+    .hero-catch{font-family:'Zen Kaku Gothic New',sans-serif;font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:900;line-height:1.4;margin-bottom:20px;letter-spacing:-0.03em;color:var(--text)}
+    .hero-catch .accent{color:var(--primary)}
+    .hero-sub{font-size:clamp(0.9rem,1.8vw,1.05rem);color:var(--text-sub);line-height:2;margin-bottom:36px;max-width:480px}
+    .hero-cta-group{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:var(--primary);color:#fff;font-size:1rem;font-weight:700;border:none;border-radius:50px;text-decoration:none;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:0 4px 20px rgba(34,197,94,0.3);cursor:pointer}
+    .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,197,94,0.4)}
+    .hero-note{font-size:0.78rem;color:var(--text-muted)}
+    .hero-phone{flex-shrink:0;width:280px;position:relative}
+    .hero-phone-frame{background:#fff;border-radius:36px;padding:8px;border:2px solid var(--border-light);box-shadow:var(--shadow-phone);overflow:hidden;position:relative}
+    .hero-phone-frame img{width:100%;display:block;border-radius:28px}
+    .hero-phone-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(74,222,128,0.12),transparent 70%);pointer-events:none;z-index:-1}
+
+    @media(max-width:768px){
+      .hero{padding:100px 0 60px;text-align:center}
+      .hero-inner{flex-direction:column-reverse;gap:32px}
+      .hero-sub{margin-left:auto;margin-right:auto}
+      .hero-cta-group{justify-content:center}
+      .hero-phone{width:220px}
+    }
+
+    /* ─── Sections ─── */
+    section{padding:100px 0}
+    .section-label{display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:14px}
+    .section-label::before{content:'';width:18px;height:2px;background:var(--primary);border-radius:1px}
+    .section-title{font-family:'Zen Kaku Gothic New',sans-serif;font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:900;margin-bottom:20px;line-height:1.4;letter-spacing:-0.02em}
+    .section-desc{font-size:1rem;color:var(--text-sub);max-width:600px;line-height:1.9;margin-bottom:48px}
+    .text-center{text-align:center}
+    .text-center .section-desc{margin-left:auto;margin-right:auto}
+
+    /* ─── Pain Points ─── */
+    .pain-section{background:var(--bg)}
+    .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .pain-card{background:var(--card);border-radius:var(--radius-lg);padding:32px 28px;border:1px solid var(--border-light);transition:all 0.4s ease}
+    .pain-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--border)}
+    .pain-emoji{font-size:2rem;margin-bottom:16px;display:block}
+    .pain-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px;color:var(--text);line-height:1.5}
+    .pain-card p{font-size:0.9rem;color:var(--text-muted);line-height:1.8}
+    @media(max-width:768px){.pain-grid{grid-template-columns:1fr;gap:14px}.pain-card{padding:24px 22px}}
+
+    /* ─── Features ─── */
+    .features-section{background:var(--bg-section)}
+    .feature-block{display:flex;align-items:center;gap:56px;margin-bottom:80px}
+    .feature-block:last-child{margin-bottom:0}
+    .feature-block.reverse{flex-direction:row-reverse}
+    .feature-text{flex:1;min-width:0}
+    .feature-number{font-family:'Zen Kaku Gothic New',sans-serif;font-size:0.8rem;font-weight:900;color:var(--primary);margin-bottom:8px;letter-spacing:0.05em}
+    .feature-text h3{font-size:1.4rem;font-weight:900;margin-bottom:14px;line-height:1.4;font-family:'Zen Kaku Gothic New',sans-serif}
+    .feature-text p{font-size:0.95rem;color:var(--text-sub);line-height:2}
+    .feature-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .feature-tag{display:inline-block;padding:4px 12px;background:var(--primary-pale);color:var(--primary-dark);font-size:0.75rem;font-weight:600;border-radius:50px}
+    .feature-visual{flex-shrink:0;width:260px}
+    .feature-phone{background:#fff;border-radius:32px;padding:8px;border:2px solid var(--border-light);box-shadow:var(--shadow-lg);overflow:hidden;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1)}
+    .feature-block:hover .feature-phone{transform:translateY(-6px)}
+    .feature-phone img{width:100%;display:block;border-radius:24px}
+    .feature-icon-block{flex-shrink:0;width:260px;display:flex;align-items:center;justify-content:center}
+    .feature-icon-card{background:var(--card);border-radius:var(--radius-xl);padding:48px;border:1px solid var(--border-light);box-shadow:var(--shadow-md);text-align:center;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1)}
+    .feature-block:hover .feature-icon-card{transform:translateY(-6px)}
+    .feature-icon-card .icon-large{font-size:4rem;display:block;margin-bottom:12px}
+    .feature-icon-card .icon-label{font-size:0.85rem;font-weight:600;color:var(--text-muted)}
+
+    @media(max-width:768px){
+      .feature-block,.feature-block.reverse{flex-direction:column;gap:28px;margin-bottom:56px}
+      .feature-visual,.feature-icon-block{width:200px;margin:0 auto}
+      .feature-text{text-align:center}
+      .feature-tags{justify-content:center}
+    }
+
+    /* ─── Pricing ─── */
+    .pricing-section{background:var(--bg-section)}
+    .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:720px;margin:0 auto}
+    .pricing-card{background:var(--card);border-radius:var(--radius-lg);padding:36px 32px;border:2px solid var(--border-light);position:relative;transition:all 0.3s ease}
+    .pricing-card:hover{box-shadow:var(--shadow-md)}
+    .pricing-card.recommended{border-color:var(--primary)}
+    .pricing-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;font-size:0.72rem;font-weight:700;padding:4px 16px;border-radius:50px;white-space:nowrap}
+    .pricing-plan{font-size:0.9rem;font-weight:700;color:var(--text-muted);margin-bottom:8px}
+    .pricing-price{font-family:'Zen Kaku Gothic New',sans-serif;font-size:2.4rem;font-weight:900;color:var(--text);margin-bottom:4px;line-height:1.2}
+    .pricing-price .unit{font-size:0.9rem;font-weight:500;color:var(--text-muted)}
+    .pricing-price .yen{font-size:1.2rem}
+    .pricing-desc{font-size:0.82rem;color:var(--text-muted);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border-light)}
+    .pricing-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+    .pricing-features li{font-size:0.88rem;color:var(--text-sub);display:flex;align-items:flex-start;gap:10px;line-height:1.6}
+    .pricing-features li::before{content:'✓';color:var(--primary);font-weight:700;flex-shrink:0;margin-top:1px}
+    .pricing-cta{display:block;text-align:center;padding:14px;background:var(--primary-bg);color:var(--primary-dark);font-size:0.9rem;font-weight:700;border:2px solid var(--primary-pale);border-radius:var(--radius-sm);text-decoration:none;transition:all 0.3s ease}
+    .pricing-cta:hover{background:var(--primary-pale)}
+    .pricing-card.recommended .pricing-cta{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .pricing-card.recommended .pricing-cta:hover{background:var(--primary-dark);border-color:var(--primary-dark)}
+    @media(max-width:640px){.pricing-grid{grid-template-columns:1fr;max-width:400px}}
+
+    /* ─── FAQ ─── */
+    .faq-section{background:var(--bg)}
+    .faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+    .faq-item{background:var(--card);border-radius:var(--radius-md);border:1px solid var(--border-light);overflow:hidden;transition:border-color 0.3s ease}
+    .faq-item:hover{border-color:var(--border)}
+    .faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;background:none;border:none;color:var(--text);font-size:0.95rem;font-weight:700;font-family:inherit;cursor:pointer;text-align:left;line-height:1.6;transition:background 0.2s ease}
+    .faq-q:hover{background:var(--card-hover)}
+    .faq-arrow{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--primary-bg);border-radius:50%;transition:all 0.3s ease}
+    .faq-arrow svg{width:12px;height:12px;stroke:var(--primary);stroke-width:2.5;fill:none;transition:transform 0.3s ease}
+    .faq-item.open .faq-arrow{background:var(--primary)}
+    .faq-item.open .faq-arrow svg{stroke:#fff;transform:rotate(180deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
+    .faq-item.open .faq-a{max-height:500px}
+    .faq-a-inner{padding:0 24px 22px;color:var(--text-sub);font-size:0.9rem;line-height:1.9}
+
+    /* ─── Final CTA ─── */
+    .final-cta{background:linear-gradient(160deg,#F0FDF4 0%,#DCFCE7 50%,#F0FDF4 100%);text-align:center;padding:100px 0;position:relative}
+    .final-cta .section-title{margin-bottom:12px}
+    .final-cta-desc{color:var(--text-sub);font-size:1rem;margin-bottom:36px}
+    .final-cta-note{display:block;margin-top:16px;font-size:0.78rem;color:var(--text-muted)}
+
+    /* ─── Footer ─── */
+    footer{background:var(--text);color:rgba(255,255,255,0.6);padding:48px 0;text-align:center;font-size:0.8rem}
+    footer a{color:var(--primary-light);text-decoration:none;transition:color 0.3s}
+    footer a:hover{color:var(--primary-pale)}
+    .footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:16px;flex-wrap:wrap}
+    .footer-copy{margin-top:8px;color:rgba(255,255,255,0.35);font-size:0.75rem}
+
+    /* ─── Animations ─── */
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+    .delay-1{transition-delay:0.1s}
+    .delay-2{transition-delay:0.2s}
+    .delay-3{transition-delay:0.3s}
+    .delay-4{transition-delay:0.4s}
+    .delay-5{transition-delay:0.5s}
+
+    /* Hero animations */
+    .hero-content>*{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+    .hero.loaded .hero-content>*{opacity:1;transform:translateY(0)}
+    .hero.loaded .hero-content>*:nth-child(1){transition-delay:0.1s}
+    .hero.loaded .hero-content>*:nth-child(2){transition-delay:0.25s}
+    .hero.loaded .hero-content>*:nth-child(3){transition-delay:0.4s}
+    .hero.loaded .hero-content>*:nth-child(4){transition-delay:0.55s}
+    .hero.loaded .hero-content>*:nth-child(5){transition-delay:0.65s}
+    .hero-phone{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease 0.3s,transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s}
+    .hero.loaded .hero-phone{opacity:1;transform:translateY(0)}
   </style>
 </head>
 <body>
-  <div class="ambient-orb ambient-orb-1"></div>
-  <div class="ambient-orb ambient-orb-2"></div>
-  <div class="cursor-glow" id="cursorGlow"></div>
-  <section class="hero">
-    <div class="container">
-      <img src="icon.png" alt="ハチュログ" class="hero-icon" id="heroIcon">
-      <h1 class="hero-catch">
-        <span class="line"><span class="line-inner" id="line1">あの子の<span class="highlight">「元気」</span>を、</span></span>
-        <span class="line"><span class="line-inner" id="line2">手のひらで管理。</span></span>
-      </h1>
-      <p class="hero-sub" id="heroSub">多頭飼育でも迷わない。<br>給餌・脱皮・体重をまとめて記録できる、<br>爬虫類専用の次世代管理アプリ。</p>
-      <a href="https://app.hachulog.jp" class="cta-button" id="heroCta">🦎 ベータ版を無料で体験する</a>
-      <span class="cta-sub" id="heroCtaSub">登録は30秒 ・ 無料でお試しいただけます</span>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="/" class="header-logo">
+        <img src="icon-small.png" alt="HachuLog" width="36" height="36">
+        <span>ハチュログ</span>
+      </a>
+      <a href="https://app.hachulog.jp" class="header-cta">無料ではじめる</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">🦎 爬虫類専用の飼育記録アプリ</div>
+        <h1 class="hero-catch">うちの子の記録、<br><span class="accent">ぜんぶここに。</span></h1>
+        <p class="hero-sub">給餌も脱皮も体重も繁殖も。<br>爬虫類飼育の「あったらいいな」を、ぜんぶ詰め込みました。</p>
+        <div class="hero-cta-group">
+          <a href="https://app.hachulog.jp" class="btn-primary">無料ではじめる</a>
+          <span class="hero-note">3匹まで無料・登録30秒</span>
+        </div>
+      </div>
+      <div class="hero-phone">
+        <div class="hero-phone-glow"></div>
+        <div class="hero-phone-frame">
+          <img src="screenshot.png" alt="ハチュログのケアカレンダー画面" loading="eager" width="264" height="572">
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- Pain Points -->
   <section class="pain-section">
-    <div class="container">
-      <span class="section-label fade-in">Problem</span>
-      <h2 class="section-title fade-in">こんな悩み、ありませんか？</h2>
-      <div class="pain-list">
-        <div class="pain-item fade-in-left stagger-1"><div class="pain-emoji">😰</div><div class="pain-text"><strong>「最後のエサ、いつだっけ？」</strong>多頭だと記憶があいまいに。うっかり忘れが不安で仕方ない。</div></div>
-        <div class="pain-item fade-in-left stagger-2"><div class="pain-emoji">📝</div><div class="pain-text"><strong>脱皮や排泄の記録がバラバラ…</strong>紙のメモ、LINEのメモ、写真のタイムスタンプ。情報がどこにあるかわからない。</div></div>
-        <div class="pain-item fade-in-left stagger-3"><div class="pain-emoji">📊</div><div class="pain-text"><strong>成長の振り返りが難しい</strong>体重の推移を見たいのに、過去のデータを探すだけで一苦労。</div></div>
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="container">
-      <span class="section-label fade-in">Solution</span>
-      <h2 class="section-title fade-in">ハチュログが選ばれる<span class="highlight">3つの理由</span></h2>
-      <div class="features-grid">
-        <div class="feature-card fade-in stagger-1">
-          <div class="feature-card-content"><div class="feature-number">01</div><h3 class="feature-title">⚡ 爆速入力</h3><p class="feature-desc">複数個体の一括入力に対応。タップ数回で全員の給餌記録が完了。忙しい飼い主さんの時間を奪いません。</p></div>
-          <div class="feature-screenshot"><div class="feature-phone"><img src="爆速入力.png" alt="爆速入力の画面"></div></div>
+    <div class="container text-center">
+      <span class="section-label fade-up">Problem</span>
+      <h2 class="section-title fade-up">こんな悩み、ありませんか？</h2>
+      <div class="pain-grid">
+        <div class="pain-card fade-up delay-1">
+          <span class="pain-emoji">😰</span>
+          <h3>「あの子のエサ、いつあげたっけ…？」</h3>
+          <p>多頭飼いだと、誰にいつあげたか記憶があいまいに。うっかり忘れが心配。</p>
         </div>
-        <div class="feature-card fade-in stagger-2">
-          <div class="feature-card-content"><div class="feature-number">02</div><h3 class="feature-title">🧬 繁殖管理もスマートに</h3><p class="feature-desc">ペアリングから産卵、孵化までの進捗管理。血統図の自動生成やモルフ予測機能も搭載予定。</p></div>
-          <div class="feature-screenshot"><div class="feature-phone"><img src="breeding.png" alt="繁殖管理の画面"></div></div>
+        <div class="pain-card fade-up delay-2">
+          <span class="pain-emoji">📝</span>
+          <h3>記録がバラバラで見返せない</h3>
+          <p>紙のメモ、LINEのひとりグループ、写真のタイムスタンプ…情報が散らばってどこにあるかわからない。</p>
         </div>
-        <div class="feature-card fade-in stagger-3">
-          <div class="feature-card-content"><div class="feature-number">03</div><h3 class="feature-title">📅 一目でわかるカレンダー</h3><p class="feature-desc">給餌・排泄・脱皮・掃除の記録をカレンダーでまとめて表示。週表示で一週間の状況を一覧できます。</p></div>
-          <div class="feature-screenshot"><div class="feature-phone"><img src="screenshot.png" alt="カレンダー画面"></div></div>
+        <div class="pain-card fade-up delay-3">
+          <span class="pain-emoji">📊</span>
+          <h3>成長の変化に気づけない</h3>
+          <p>体重の推移を見たいのに、過去のデータを探すだけで一苦労。異変の早期発見が難しい。</p>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label fade-up">Features</span>
+        <h2 class="section-title fade-up">ハチュログでできること</h2>
+        <p class="section-desc fade-up">日々のお世話から繁殖管理まで。飼い主さんが「ほしかった」機能を揃えました。</p>
+      </div>
+
+      <!-- Feature 1: Care Calendar -->
+      <div class="feature-block fade-up">
+        <div class="feature-text">
+          <div class="feature-number">01</div>
+          <h3>今日のお世話、ひと目でわかる<br>ケアカレンダー</h3>
+          <p>給餌・脱皮・給水・掃除・日常観察・霧吹き・サプリ・温浴・ハンドリング…すべてのケアをカレンダーで一覧表示。月表示と週表示を切り替えて、お世話の全体像を把握できます。</p>
+          <div class="feature-tags">
+            <span class="feature-tag">月表示 / 週表示</span>
+            <span class="feature-tag">全ケア項目対応</span>
+            <span class="feature-tag">個体別フィルター</span>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-phone">
+            <img src="screenshot.png" alt="ケアカレンダーの画面" loading="lazy" width="244" height="528">
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2: Batch Input -->
+      <div class="feature-block reverse fade-up">
+        <div class="feature-text">
+          <div class="feature-number">02</div>
+          <h3>多頭飼いでも、記録は一瞬<br>ケア一括入力</h3>
+          <p>個体をまとめて選択して、給餌・排泄・脱皮・ケアを一括記録。エサの種類はアイコンから選ぶだけ。過去の給餌履歴からワンタップで入力できるので、毎回同じ内容を入力する手間もありません。</p>
+          <div class="feature-tags">
+            <span class="feature-tag">複数個体を一括選択</span>
+            <span class="feature-tag">給餌履歴から入力</span>
+            <span class="feature-tag">エサアイコン選択</span>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-phone">
+            <img src="爆速入力.png" alt="一括入力の画面" loading="lazy" width="244" height="528">
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3: Breeding -->
+      <div class="feature-block fade-up">
+        <div class="feature-text">
+          <div class="feature-number">03</div>
+          <h3>ペアリングから孵化まで<br>繁殖管理 &amp; モルフ予測</h3>
+          <p>ペアリング→産卵→孵卵→孵化の進捗をステータスで管理。親のモルフ情報から子のモルフ確率を自動計算。致死コンボの警告機能も搭載し、安心してブリードに取り組めます。</p>
+          <div class="feature-tags">
+            <span class="feature-tag">ステータス進捗管理</span>
+            <span class="feature-tag">モルフ確率予測</span>
+            <span class="feature-tag">致死コンボ警告</span>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-phone">
+            <img src="breeding.png" alt="繁殖管理の画面" loading="lazy" width="244" height="528">
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 4: Weight Graph -->
+      <div class="feature-block reverse fade-up">
+        <div class="feature-text">
+          <div class="feature-number">04</div>
+          <h3>成長の記録を、グラフで振り返る<br>体重トラッキング</h3>
+          <p>体重を記録するたびに成長曲線を自動生成。増減の傾向がひと目でわかるから、体調の変化にも気づきやすくなります。</p>
+          <div class="feature-tags">
+            <span class="feature-tag">成長グラフ</span>
+            <span class="feature-tag">増減トレンド</span>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-phone">
+            <img src="体重管理.png" alt="体重グラフの画面" loading="lazy" width="244" height="528">
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 5: Notifications -->
+      <div class="feature-block fade-up">
+        <div class="feature-text">
+          <div class="feature-number">05</div>
+          <h3>うっかり忘れを、やさしくお知らせ<br>通知 &amp; リマインダー</h3>
+          <p>給餌のプッシュ通知で「あげ忘れ」を防止。通院・繁殖・投薬・イベント・書類期限など、大事な予定もリマインダーでお知らせします。</p>
+          <div class="feature-tags">
+            <span class="feature-tag">プッシュ通知</span>
+            <span class="feature-tag">予定管理</span>
+            <span class="feature-tag">繰り返し設定</span>
+          </div>
+        </div>
+        <div class="feature-icon-block">
+          <div class="feature-icon-card">
+            <span class="icon-large">🔔</span>
+            <span class="icon-label">通知 & リマインダー</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 6: Individual Management -->
+      <div class="feature-block reverse fade-up">
+        <div class="feature-text">
+          <div class="feature-number">06</div>
+          <h3>写真・モルフ・ロカリティまで<br>個体情報をしっかり管理</h3>
+          <p>個体ごとに写真・モルフ・ロカリティ（産地）・性別・生年月日を登録。動物取扱業の法定項目にも対応しているので、ブリーダーさんの台帳管理にもお使いいただけます。</p>
+          <div class="feature-tags">
+            <span class="feature-tag">写真ギャラリー</span>
+            <span class="feature-tag">モルフ管理</span>
+            <span class="feature-tag">ロカリティ記録</span>
+            <span class="feature-tag">法定項目対応</span>
+          </div>
+        </div>
+        <div class="feature-icon-block">
+          <div class="feature-icon-card">
+            <span class="icon-large">🦎</span>
+            <span class="icon-label">個体管理</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing-section">
+    <div class="container text-center">
+      <span class="section-label fade-up">Pricing</span>
+      <h2 class="section-title fade-up">料金プラン</h2>
+      <p class="section-desc fade-up">まずは無料でお試しください。飼育数が増えたらStandardへ。</p>
+      <div class="pricing-grid">
+        <div class="pricing-card fade-up delay-1">
+          <div class="pricing-plan">Free</div>
+          <div class="pricing-price"><span class="yen">¥</span>0 <span class="unit">/ 月</span></div>
+          <div class="pricing-desc">はじめての方に</div>
+          <ul class="pricing-features">
+            <li>3匹まで登録可能</li>
+            <li>ケアカレンダー</li>
+            <li>一括入力</li>
+            <li>体重グラフ</li>
+            <li>給餌通知</li>
+          </ul>
+          <a href="https://app.hachulog.jp" class="pricing-cta">無料ではじめる</a>
+        </div>
+        <div class="pricing-card recommended fade-up delay-2">
+          <div class="pricing-badge">おすすめ</div>
+          <div class="pricing-plan">Standard</div>
+          <div class="pricing-price"><span class="yen">¥</span>480 <span class="unit">/ 月</span></div>
+          <div class="pricing-desc">多頭飼い・ブリーダーに</div>
+          <ul class="pricing-features">
+            <li>100匹まで登録可能</li>
+            <li>Freeの全機能</li>
+            <li>繁殖管理 & モルフ予測</li>
+            <li>予定リマインダー</li>
+            <li>データエクスポート</li>
+          </ul>
+          <a href="https://app.hachulog.jp" class="pricing-cta">無料ではじめる</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
   <section class="faq-section">
+    <div class="container text-center">
+      <span class="section-label fade-up">FAQ</span>
+      <h2 class="section-title fade-up">よくある質問</h2>
+    </div>
     <div class="container">
-      <span class="section-label fade-in">FAQ</span>
-      <h2 class="section-title fade-in">よくある質問</h2>
       <div class="faq-list">
-        <div class="faq-item fade-in stagger-1">
-          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">アプリは無料で利用できますか？</button>
-          <div class="faq-answer"><div class="faq-answer-inner">現在ベータ版として無料で全機能をお使いいただけます。正式リリース後は、登録個体数など一部の機能に制限のある無料プランと、すべての機能をご利用いただけるサブスクリプションプランをご用意する予定です。</div></div>
+        <div class="faq-item fade-up delay-1">
+          <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            無料プランでどこまで使えますか？
+            <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Freeプランでは3匹まで登録でき、ケアカレンダー・一括入力・体重グラフ・給餌通知をご利用いただけます。4匹以上の管理や繁殖管理機能をお使いになる場合は、Standard（月額480円）へのアップグレードをご検討ください。</div></div>
         </div>
-        <div class="faq-item fade-in stagger-2">
-          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">スマホのアプリはありますか？</button>
-          <div class="faq-answer"><div class="faq-answer-inner">現在ハチュログはブラウザからアクセスするWebサービスとして提供しています。App StoreやGoogle Play Storeでダウンロードできるスマホアプリは現在開発中です。<br><br>ただし、ハチュログをスマートフォンのホーム画面に追加していただくことで、スマホアプリのようにホーム画面からワンタップでアクセスできますのでぜひお試しください。</div></div>
+        <div class="faq-item fade-up delay-2">
+          <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            スマホアプリはありますか？
+            <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">ハチュログはブラウザからアクセスするWebアプリとして提供しています。スマートフォンのホーム画面に追加していただくと、ネイティブアプリのようにワンタップで起動できます。App Store / Google Play 版は今後対応予定です。</div></div>
         </div>
-        <div class="faq-item fade-in stagger-3">
-          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">LINE・Instagram・FacebookからGoogleログインできないのですが？</button>
-          <div class="faq-answer"><div class="faq-answer-inner">LINE、Instagram、FacebookなどのアプリからハチュログのURLを開いてGoogleログインしようとすると、Googleの仕様によりログインできない場合があります。<br><br>その場合は、ChromeやSafariなどのブラウザで直接ハチュログのURLを開いてログインしてください。X（旧Twitter）からはログインが可能です。</div></div>
+        <div class="faq-item fade-up delay-3">
+          <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            データが消えたりしませんか？
+            <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">データはクラウドに安全に保存されています。端末を変えてもアカウントにログインすればすべてのデータにアクセスできます。</div></div>
+        </div>
+        <div class="faq-item fade-up delay-4">
+          <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            LINEやInstagramからGoogleログインできないのですが？
+            <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">LINE・Instagram・Facebookなどのアプリ内ブラウザからはGoogleの仕様によりログインできない場合があります。ChromeやSafariなどの標準ブラウザで直接開いてログインしてください。X（旧Twitter）のアプリ内ブラウザからはログイン可能です。</div></div>
+        </div>
+        <div class="faq-item fade-up delay-5">
+          <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            解約はいつでもできますか？
+            <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">はい、アプリ内の設定画面からいつでも解約できます。解約後も契約期間の終了日まではStandardプランの機能をご利用いただけます。</div></div>
         </div>
       </div>
     </div>
   </section>
-  <section class="cta-section">
-    <div class="container fade-in">
-      <h2 class="section-title">さっそく試してみませんか？</h2>
-      <p class="cta-desc">現在ベータ版を無料公開中。フィードバックお待ちしています！</p>
-      <a href="https://app.hachulog.jp" class="cta-button visible">🦎 ベータ版を無料で体験する</a>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div class="container fade-up">
+      <h2 class="section-title">うちの子の記録、<br>はじめてみませんか？</h2>
+      <p class="final-cta-desc">まずは無料で。3匹までのケア記録をお試しいただけます。</p>
+      <a href="https://app.hachulog.jp" class="btn-primary">無料ではじめる</a>
+      <span class="final-cta-note">アカウント登録は30秒で完了します</span>
     </div>
   </section>
+
+  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-links">
-        <a href="https://x.com/Hachu_Log" target="_blank">𝕏 開発状況をフォロー</a>
-        <a href="https://app.hachulog.jp" target="_blank">アプリを開く</a>
+        <a href="https://x.com/Hachu_Log" target="_blank" rel="noopener">𝕏 公式アカウント</a>
+        <a href="https://app.hachulog.jp" target="_blank" rel="noopener">アプリを開く</a>
+        <a href="tokushoho.html">特定商取引法に基づく表記</a>
       </div>
-      <p>ベータ版へのフィードバックをお待ちしています！</p>
-      <p style="margin-top:12px;"><a href="tokushoho.html">特定商取引法に基づく表記</a></p>
-      <p style="margin-top:12px;">© 2026 HachuLog</p>
+      <p class="footer-copy">© 2026 HachuLog</p>
     </div>
   </footer>
+
   <script>
-    window.addEventListener('load',function(){
-      setTimeout(function(){document.getElementById('heroIcon').classList.add('visible')},200);
-      setTimeout(function(){document.getElementById('line1').classList.add('visible')},500);
-      setTimeout(function(){document.getElementById('line2').classList.add('visible')},700);
-      setTimeout(function(){document.getElementById('heroSub').classList.add('visible')},200);
-      setTimeout(function(){document.getElementById('heroCta').classList.add('visible')},200);
-      setTimeout(function(){document.getElementById('heroCtaSub').classList.add('visible')},200);
-      setTimeout(function(){document.getElementById('phoneMockup').classList.add('visible')},900);
+    // Header scroll effect
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // Hero load animation
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('hero').classList.add('loaded');
+      }, 100);
     });
-    var observer=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')});
-    },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.fade-in,.fade-in-left').forEach(function(el){observer.observe(el)});
-    var glow=document.getElementById('cursorGlow');
-    var mx=-500,my=-500;
-    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY});
-    function ug(){glow.style.left=mx+'px';glow.style.top=my+'px';requestAnimationFrame(ug)}ug();
+
+    // Scroll fade-in
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) {
+      observer.observe(el);
+    });
   </script>
 </body>
 </html>
